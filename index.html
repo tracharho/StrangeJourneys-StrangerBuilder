@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stranger Sheet</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" xintegrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -521,7 +520,7 @@
                 </div>
 
             </div>
-             <!-- Add Item & Save PDF Section --><div class="col-span-12 section mt-2 flex flex-col sm:flex-row items-center gap-4 justify-between">
+             <!-- Add Item & Save PDF Section --><div class="col-span-12 section mt-2 flex flex-col sm:flex-row items-center gap-4 justify-start">
                 <!-- Add Item --><div class="flex-grow flex items-center gap-4 w-full sm:w-auto">
                     <label for="add-item-type" class="section-title !mb-0">Add New Item:</label>
                     <select id="add-item-type" class="input-field bg-white highlight-entry flex-grow">
@@ -693,7 +692,6 @@
         const themeToggle = document.getElementById('theme-toggle');
         const themeToggleIndicator = document.getElementById('theme-toggle-indicator');
         const body = document.body;
-        const savePdfBtn = document.getElementById('save-pdf-btn');
 
 
         // --- HTML TEMPLATES ---
@@ -739,23 +737,6 @@
             </div>`;
 
         // --- FUNCTIONS ---
-
-        function saveSheetAsPDF() {
-            // Get the character name to use in the filename
-            const characterName = document.getElementById('name').value.trim() || 'Stranger';
-            const filename = `${characterName.replace(/\s+/g, '_')}_Sheet.pdf`;
-
-            const options = {
-              margin:       [0.5, 0.5, 0.5, 0.5], // top, left, bottom, right in inches
-              filename:     filename,
-              image:        { type: 'jpeg', quality: 0.98 },
-              html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
-              jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-            };
-
-            // Use html2pdf to generate the PDF
-            html2pdf().from(sheetContainer).set(options).save();
-        }
 
         function addTooltipsToSelect(selectElement, dataObject) {
             const options = selectElement.options;
@@ -992,8 +973,6 @@
             applyTheme(newTheme);
         });
 
-        savePdfBtn.addEventListener('click', saveSheetAsPDF);
-
         addItemBtn.addEventListener('click', handleAddItem);
 
         mainContainer.addEventListener('click', function(event) {
@@ -1061,4 +1040,5 @@
 
 </body>
 </html>
+
 
